@@ -13,6 +13,7 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
+from google.oauth2 import service_account
 from google.cloud import bigquery
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -30,11 +31,33 @@ DATASET_ID = "edis"
 
 # ── BigQuery client ───────────────────────────────────────────────────────────
 @st.cache_resource
+@st.cache_resource
 def get_client():
+    from google.oauth2 import service_account
+    import json
+
     key_path = os.path.expanduser("~/edis-key.json")
     if os.path.exists(key_path):
+        # Running locally — use key file
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
-    return bigquery.Client(project=PROJECT_ID)
+        return bigquery.Client(project=PROJECT_ID)
+    else:
+        # Running on Streamlit Cloud — use secrets
+        creds_info = {
+            "type": "service_account",
+            "project_id": st.secrets["gcp_service_account"]["project_id"],
+            "private_key_id": st.secrets["gcp_service_account"]["private_key_id"],
+            "private_key": st.secrets["gcp_service_account"]["private_key"].replace("\\n", "\n"),
+            "client_email": st.secrets["gcp_service_account"]["client_email"],
+            "client_id": st.secrets["gcp_service_account"].get("client_id", ""),
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+        }
+        credentials = service_account.Credentials.from_service_account_info(
+            creds_info,
+            scopes=["https://www.googleapis.com/auth/cloud-platform"],
+        )
+        return bigquery.Client(project=PROJECT_ID, credentials=credentials)
 
 client = get_client()
 
