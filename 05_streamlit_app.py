@@ -26,6 +26,33 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Global CSS — matches 601Labs.ai dark gold theme ───────────────────────────
+st.markdown("""
+<style>
+    .main-header {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #E8E8E8;
+        letter-spacing: -0.02em;
+    }
+    .gold-accent {
+        color: #C9A84C;
+    }
+    [data-testid="stSidebar"] {
+        background-color: #111111;
+        border-right: 1px solid #2A2A2A;
+    }
+    .metric-label {
+        color: #888888;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# ── BigQuery client ───────────────────────────────────────────────────────────
+
 PROJECT_ID = "labs601-edis"
 DATASET_ID = "edis"
 
