@@ -10,3 +10,4 @@ numpy
 scikit-learn
 xgboost
 shap
+google-cloud-storage
