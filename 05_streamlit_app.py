@@ -208,13 +208,30 @@ if page == "Overview":
     with col1:
         st.subheader("Score distribution")
         fig = px.histogram(scored, x="propensity_score", nbins=30, color_discrete_sequence=[t["c1"]])
-        fig.update_layout(plot_bgcolor=t["card"], paper_bgcolor=t["bg"], font_color=t["text"], xaxis_title="Propensity score", yaxis_title="Accounts", margin=dict(l=0,r=0,t=20,b=0))
+        fig.update_traces(marker_line_width=1.5, marker_line_color=t["bg"])
+        fig.update_layout(
+            plot_bgcolor=t["card"], paper_bgcolor=t["bg"],
+            font=dict(color=t["text"], size=12),
+            xaxis=dict(title="Propensity score", color=t["text"],
+                       tickfont=dict(color=t["text"]), gridcolor=t["border"], zeroline=False),
+            yaxis=dict(title="Accounts", color=t["text"],
+                       tickfont=dict(color=t["text"]), gridcolor=t["border"], zeroline=False),
+            margin=dict(l=0, r=0, t=20, b=0), bargap=0.1,
+        )
         st.plotly_chart(fig, use_container_width=True)
     with col2:
         st.subheader("Score by pipeline stage")
         sa = scored.groupby("pipeline_stage")["propensity_score"].mean().reset_index().sort_values("propensity_score")
         fig = px.bar(sa, x="propensity_score", y="pipeline_stage", orientation="h", color_discrete_sequence=[t["c2"]])
-        fig.update_layout(plot_bgcolor=t["card"], paper_bgcolor=t["bg"], font_color=t["text"], xaxis_title="Avg score", yaxis_title="", margin=dict(l=0,r=0,t=20,b=0))
+        fig.update_layout(
+            plot_bgcolor=t["card"], paper_bgcolor=t["bg"],
+            font=dict(color=t["text"], size=12),
+            xaxis=dict(title="Avg score", color=t["text"],
+                       tickfont=dict(color=t["text"]), gridcolor=t["border"], zeroline=False),
+            yaxis=dict(title="", color=t["text"],
+                       tickfont=dict(color=t["text"]), gridcolor=t["border"]),
+            margin=dict(l=0, r=0, t=20, b=0), bargap=0.35,
+        )
         st.plotly_chart(fig, use_container_width=True)
     st.markdown("---")
     st.subheader("Top 20 accounts")
