@@ -164,9 +164,25 @@ def retrieve(query, n=3):
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown(f"<div style='font-size:2rem'>🧠</div>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-weight:700;color:{t['text']}'>601Labs EDIS</div>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-size:0.75rem;color:{t['sub']}'>Enterprise Decision Intelligence</div>", unsafe_allow_html=True)
+    st.markdown(f"""
+    <div style="padding:4px 0 4px 0;">
+        <a href="https://601labs.ai" target="_blank" style="
+            display:inline-flex;align-items:center;gap:5px;
+            color:{t['accent']};text-decoration:none;
+            font-size:0.82rem;font-weight:600;">
+            &#8592; 601Labs.ai
+        </a>
+    </div>
+    <div style="padding:8px 0 12px 0;">
+        <img src="https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo.png"
+             style="width:100%;max-width:158px;"
+             alt="601Labs.ai"/>
+        <div style="font-size:0.65rem;color:{t['sub']};letter-spacing:0.13em;
+                    text-transform:uppercase;margin-top:5px;">
+            Enterprise Decision Intelligence
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     st.markdown("---")
 
     # Theme toggle
