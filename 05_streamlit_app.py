@@ -164,21 +164,23 @@ def retrieve(query, n=3):
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    logo_filter = "brightness(0) invert(1)" if st.session_state.dark_mode else "none"
+    logo_url = (
+        "https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo-white.png"
+        if st.session_state.dark_mode else
+        "https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo-transparent.png"
+    )
     st.markdown(f'''
-    <div style="padding: 8px 0 12px 0;">
+    <div style="padding:8px 0 16px 0;">
         <a href="https://601labs.ai" target="_blank" style="text-decoration:none;">
-            <img src="https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo.png"
-                 style="width:100%;max-width:160px;filter:{logo_filter};opacity:0.92;"
-                 alt="601Labs.ai logo"/>
+            <img src="{logo_url}" style="width:100%;max-width:170px;" alt="601Labs.ai"/>
         </a>
-        <div style="font-size:0.7rem;color:{t['sub']};letter-spacing:0.12em;
-                    text-transform:uppercase;margin-top:6px;">
+        <div style="font-size:0.65rem;color:{t["sub"]};letter-spacing:0.14em;
+                    text-transform:uppercase;margin-top:4px;">
             Enterprise Decision Intelligence
         </div>
     </div>
     ''', unsafe_allow_html=True)
-    st.markdown("---")
+st.markdown("---")
 
     # Theme toggle
     col1, col2 = st.columns([3,1])
