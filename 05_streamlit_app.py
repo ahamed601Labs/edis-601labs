@@ -164,22 +164,33 @@ def retrieve(query, n=3):
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
-    logo_url = (
-        "https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo-white.png"
-        if st.session_state.dark_mode else
-        "https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo-transparent.png"
-    )
-    st.markdown(f'''
-    <div style="padding:8px 0 16px 0;">
-        <a href="https://601labs.ai" target="_blank" style="text-decoration:none;">
-            <img src="{logo_url}" style="width:100%;max-width:170px;" alt="601Labs.ai"/>
-        </a>
-        <div style="font-size:0.65rem;color:{t["sub"]};letter-spacing:0.14em;
-                    text-transform:uppercase;margin-top:4px;">
+    # Top navigation — back to 601Labs.ai
+    st.markdown(f"""
+    <a href="https://601labs.ai" target="_blank" style="
+        display:inline-flex;align-items:center;gap:6px;
+        color:{t['accent']};text-decoration:none;
+        font-size:0.8rem;font-weight:500;
+        padding:6px 0 2px 0;
+        letter-spacing:0.02em;
+        opacity:0.9;
+    ">
+        <span style="font-size:1rem;">←</span> 601Labs.ai
+    </a>
+    """, unsafe_allow_html=True)
+    st.markdown("<hr style='margin:10px 0;border-color:#2A2A2A;'>", unsafe_allow_html=True)
+    # Logo
+    logo_filter = "brightness(0) invert(1) opacity(0.92)" if st.session_state.dark_mode else "none"
+    st.markdown(f"""
+    <div style="padding:4px 0 12px 0;">
+        <img src="https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo.png"
+             style="width:100%;max-width:160px;filter:{logo_filter};"
+             alt="601Labs.ai"/>
+        <div style="font-size:0.65rem;color:{t['sub']};letter-spacing:0.14em;
+                    text-transform:uppercase;margin-top:6px;">
             Enterprise Decision Intelligence
         </div>
     </div>
-    ''', unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 st.markdown("---")
 
     # Theme toggle
