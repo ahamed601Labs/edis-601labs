@@ -25,8 +25,8 @@ import pickle
 
 # ── Page config — MUST be first Streamlit call ────────────────────────────────
 st.set_page_config(
-    page_title="601Labs EDIS",
-    page_icon="🧠",
+    page_title="601Labs · EDIS",
+    page_icon="https://storage.googleapis.com/labs601-edis-data/assets/601labs-logo.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
